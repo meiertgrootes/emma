@@ -61,6 +61,16 @@
   tags:
     - spark
 
+- hosts: all
+  gather_facts: no
+  remote_user: ubuntu
+  become: True
+  vars_files:
+  roles:
+    - purepdal
+  tags:
+    -purepdal
+
 - hosts: spark
   gather_facts: no
   remote_user: ubuntu
@@ -148,4 +158,3 @@
     - jupyterhub
   tags:
     - jupyterhub
-
