@@ -1,0 +1,40 @@
+---
+- name: Check if GDAL was installed
+  shell: dpkg-query -W 'gdal-bin'
+  ignore_errors: True
+  register: is_gdal_installed
+
+- name: add repository for GDAL
+  apt_repository: repo=ppa:ubuntugis/ubuntugis-unstable
+  when: is_gdal_installed|failed
+  tags:
+    - puregdal
+
+- name: Update apt cache
+  apt: update_cache=yes
+  when: is_gdal_installed|failed
+  tags:
+    - puregdal
+
+- name: Upgrade APT to the lastest packages
+  apt: upgrade=full
+  when: is_gdal_installed|failed
+  tags:
+    - puregdal
+
+- name: Install GDAL
+  apt: name={{ item }}
+  with_items:
+    - gdal-bin
+    - libgdal-dev
+  when: is_gdal_installed|failed
+  tags:
+    - puregdal
+
+# Install gdal python bindings
+- name: Install GDAL Python bindings
+  pip: name={{ item }} executable=pip3
+  with_items:
+    - GDAL
+  tags:
+    -puregdal
