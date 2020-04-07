@@ -64,12 +64,12 @@
 - hosts: all
   gather_facts: no
   remote_user: ubuntu
-  become: True
+  become: true
   vars_files:
   roles:
     - purepdal
   tags:
-    -purepdal
+    - purepdal
 
 - hosts: spark
   gather_facts: no
