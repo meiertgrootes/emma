@@ -12,6 +12,16 @@
   tags:
     - common
 
+- hosts: all
+  gather_facts: no
+  remote_user: ubuntu
+  become: true
+  roles:
+    - purepdal
+  any_error_fatal: true
+  tags:
+    - purepdal
+
 - hosts: minio
   gather_facts: yes
   remote_user: ubuntu
@@ -60,16 +70,6 @@
   any_errors_fatal: true
   tags:
     - spark
-
-- hosts: all
-  gather_facts: no
-  remote_user: ubuntu
-  become: true
-  vars_files:
-  roles:
-    - purepdal
-  tags:
-    - purepdal
 
 - hosts: spark
   gather_facts: no
