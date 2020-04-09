@@ -45,7 +45,7 @@
 #  tags:
 #    - lastools
 
- Install dependencies for PDAL.
+# Install dependencies for PDAL.
 - name: Ensure PDAL dir exists
   file: path="{{ emma_modules_dir }}/pdal" state=directory group=users mode=g+rw
 
