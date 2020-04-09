@@ -32,21 +32,20 @@
     - gdal
 
 #Install Lastools
-- name: Extract LAStools
-  unarchive:
-    src="{{ lastools_download_url }}"
-    dest="{{ emma_modules_dir }}"
-    copy=no
-    creates="{{ emma_modules_dir }}/LAStools"
-  tags:
-    - lastools
+#  unarchive:
+#    src="{{ lastools_download_url }}"
+#    dest="{{ emma_modules_dir }}"
+#    copy=no
+#    creates="{{ emma_modules_dir }}/LAStools"
+#  tags:
+#    - lastools
 
-- name: Install LAStools
-  shell: "cd {{ emma_modules_dir }}/LAStools && make && cp {{ emma_modules_dir }}/LAStools/bin/laszip /usr/local/bin/"
-  tags:
-    - lastools
+#- name: Install LAStools
+#  shell: "cd {{ emma_modules_dir }}/LAStools && make && cp {{ emma_modules_dir }}/LAStools/bin/laszip /usr/local/bin/"
+#  tags:
+#    - lastools
 
-# Install dependencies for PDAL.
+ Install dependencies for PDAL.
 - name: Ensure PDAL dir exists
   file: path="{{ emma_modules_dir }}/pdal" state=directory group=users mode=g+rw
 
