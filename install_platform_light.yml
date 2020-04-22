@@ -17,6 +17,18 @@
   remote_user: ubuntu
   become: true
   roles:
+    - puregdal
+  any_errors_fatal: true
+  tags:
+    - puregdal
+
+- hosts: all
+  gather_facts: no
+  remote_user: ubuntu
+  become: true
+  vars_files:
+    - vars/purepdal_vars.yml
+  roles:
     - purepdal
   any_errors_fatal: true
   tags:
