@@ -156,27 +156,27 @@
   shell: "cd {{ emma_modules_dir }}/pdal/pdal_1_7_maintenance && sudo mkdir makefiles && cd makefiles && sudo cmake ../ -G \"Unix Makefiles\" -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=make -DPYTHON_EXECUTABLE={{ python_executable }} -DBUILD_PLUGIN_PYTHON=ON -DBUILD_PLUGIN_CPD=ON -DBUILD_PLUGIN_GREYHOUND=ON -DBUILD_PLUGIN_HEXBIN=ON -DBUILD_PLUGIN_NITF=ON -DBUILD_PLUGIN_ICEBRIDGE=ON -DBUILD_PLUGIN_PGPOINTCLOUD=ON -DBUILD_PLUGIN_SQLITE=ON -DWITH_LASZIP=ON -DWITH_LAZPERF=ON -DBUILD_PLUGIN_DELAUNAY=ON"
   when: pdal_dir.stat.exists is defined and not pdal_dir.stat.exists
 
-- name: Install pdal 2/4
-  shell: "cd {{ emma_modules_dir }}/pdal/pdal_1_7_maintenance/makefiles && sudo make -j2"
-  when: pdal_dir.stat.exists is defined and not pdal_dir.stat.exists
+#- name: Install pdal 2/4
+#  shell: "cd {{ emma_modules_dir }}/pdal/pdal_1_7_maintenance/makefiles && sudo make -j2"
+  #when: pdal_dir.stat.exists is defined and not pdal_dir.stat.exists
 
-- name: Install pdal 3/4
-  shell: "cd {{ emma_modules_dir }}/pdal/pdal_1_7_maintenance/makefiles && sudo make install"
-  when: pdal_dir.stat.exists is defined and not pdal_dir.stat.exists
+#- name: Install pdal 3/4
+#  shell: "cd {{ emma_modules_dir }}/pdal/pdal_1_7_maintenance/makefiles && sudo make install"
+  #when: pdal_dir.stat.exists is defined and not pdal_dir.stat.exists
 
-- name: Install pdal 3/4
-  shell: "cd {{ emma_modules_dir }}/pdal/pdal_1_7_maintenance/makefiles && sudo ldconfig --verbose"
-  when: pdal_dir.stat.exists is defined and not pdal_dir.stat.exists
+#- name: Install pdal 3/4
+#  shell: "cd {{ emma_modules_dir }}/pdal/pdal_1_7_maintenance/makefiles && sudo ldconfig --verbose"
+  #when: pdal_dir.stat.exists is defined and not pdal_dir.stat.exists
 
 #- name: Install PDAL
 #  shell: "cd {{ emma_modules_dir }}/pdal/pdal_1_7_maintenance && sudo mkdir makefiles && cd makefiles && sudo cmake ../ -G \"Unix Makefiles\" -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=make -DPYTHON_EXECUTABLE={{ python_executable }} -DBUILD_PLUGIN_PYTHON=ON -DBUILD_PLUGIN_CPD=ON -DBUILD_PLUGIN_GREYHOUND=ON -DBUILD_PLUGIN_HEXBIN=ON -DBUILD_PLUGIN_NITF=ON -DBUILD_PLUGIN_ICEBRIDGE=ON -DBUILD_PLUGIN_PGPOINTCLOUD=ON -DBUILD_PLUGIN_SQLITE=ON -DWITH_LASZIP=ON -DWITH_LAZPERF=ON -DBUILD_PLUGIN_DELAUNAY=ON && sudo make -j2 && sudo make install && sudo ldconfig"
 #  when: pdal_dir.stat.exists is defined and not pdal_dir.stat.exists
 
 #Install PDAL python bindings
-- name: Install PDAL python bindings
-  pip:
-    name:
-      - Cython
-      - packaging
-      - PDAL==2.0.0
-    executable: pip3
+#- name: Install PDAL python bindings
+#  pip:
+#    name:
+#      - Cython
+#      - packaging
+#      - PDAL==2.0.0
+#    executable: pip3
