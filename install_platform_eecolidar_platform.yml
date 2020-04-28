@@ -1,0 +1,37 @@
+---
+
+- hosts: all
+  gather_facts: no
+  remote_user: ubuntu
+  become: true
+  vars_files:
+    - vars/common_vars.yml
+  roles:
+    - common
+  any_errors_fatal: true
+  tags:
+    - common
+
+- hosts: all
+  gather_facts: no
+  remote_user: ubuntu
+  become: true
+  vars_files:
+   - vars/pdal_vars.yml
+  roles:
+    - pdal
+  tags:
+    - pdal
+
+
+- hosts: dask
+  gather_facts: yes
+  remote_user: ubuntu
+  become: true
+  vars_files:
+   - vars/common_vars.yml
+   - vars/dask_vars.yml
+  roles:
+    - dask
+  tags:
+    - dask
