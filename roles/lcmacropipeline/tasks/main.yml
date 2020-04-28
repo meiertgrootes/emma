@@ -1,0 +1,15 @@
+---
+- name: ensure lcmacropipeline directory exists
+  file: path="{{ emma_modules_dir }}/lcMacroPipe" state=directory group=users mode=g+rw
+
+- name: Download lcmacropipeline
+  git:
+    repo: https://github.com/eEcoLiDAR/lcMacroPipeline/tree/development
+    dest: "{{ emma_modules_dir }}/lcMacroPipe/lcMacroPipeline"
+    update: no
+
+- name: Install lcMacroPipeline
+  pip:
+    name:
+      - "{{ emma_modules_dir }}/lcMacroPipe/lcMacroPipeline/."
+    executable: pip3
