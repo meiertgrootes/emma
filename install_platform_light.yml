@@ -22,17 +22,6 @@
   tags:
     - puregdal
 
-- hosts: all
-  gather_facts: no
-  remote_user: ubuntu
-  become: true
-  vars_files:
-    - vars/purepdal_vars.yml
-  roles:
-    - purepdal
-  any_errors_fatal: true
-  tags:
-    - purepdal
 
 - hosts: minio
   gather_facts: yes
