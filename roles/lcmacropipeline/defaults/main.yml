@@ -1,2 +1,2 @@
 ---
-python_executable: "python"  
+python_executable: "/usr/bin/python3"  
