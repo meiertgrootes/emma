@@ -24,6 +24,16 @@
     - pdal
 
 
+- hosts: all
+  gather_facts: no
+  remote_user: ubuntu
+  become: true
+  vars_files:
+  roles:
+    - lcmacropipeline
+  tags:
+    - lcmacropipeline
+
 - hosts: dask
   gather_facts: yes
   remote_user: ubuntu
