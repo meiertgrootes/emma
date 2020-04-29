@@ -4,8 +4,9 @@
 
 - name: Download lcmacropipeline
   git:
-    repo: https://github.com/eEcoLiDAR/lcMacroPipeline/tree/development
+    repo: https://github.com/eEcoLiDAR/lcMacroPipeline.git
     dest: "{{ emma_modules_dir }}/lcMacroPipe/lcMacroPipeline"
+    version: "development"
     update: no
 
 - name: Install lcMacroPipeline
