@@ -137,6 +137,38 @@
 - name: Install sbt
   apt: name=sbt
 
+#upgrade Cmake
+- name: purge system Cmake
+  apt:
+    name: cmake
+    purge: yes
+
+- name: add apt-key for cmake from kitware
+  apt_key:
+    url: https://apt.kitware.com/keys/kitware-archive-latest.asc
+    state: present
+    keyring: /etc/apt/trusted.gpg.d/kitware.gpg
+
+- name: Add repo for Cmake
+  apt_repository:
+    repo: deb https://apt.kitware.com/ubuntu/ bionic main
+    state: present
+
+- name: Update apt update_cache
+  apt:
+    update_cache: yes
+
+- name: install kitware archive keyring
+  apt:
+    name: kitware-archive-keyring
+
+- name: remove initial kiware key
+  shell: rm /etc/apt/trusted.gpg.d/kitware.gpg
+
+- name: install kitware version of cmake for ubuntu 18.04
+  apt:
+    cmake
+
 # Extra Python packages
 - name: Extra Python packages
   pip: name={{ item }} executable=pip3
@@ -153,4 +185,3 @@
 
 - name: Ensure Emma modules directory exists
   file: path="{{ emma_modules_dir }}" state=directory group=users mode=g+rw
-
