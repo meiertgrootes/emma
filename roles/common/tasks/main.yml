@@ -168,6 +168,7 @@
 - name: install kitware version of cmake for ubuntu 18.04
   apt:
     name: cmake
+    state: latest
 
 # Extra Python packages
 - name: Extra Python packages
