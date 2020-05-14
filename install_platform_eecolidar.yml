@@ -41,6 +41,7 @@
   remote_user: ubuntu
   become: true
   vars_files:
+    - vars/lcmacropipeline_vars.yml
   roles:
     - lcmacropipeline
   tags:
