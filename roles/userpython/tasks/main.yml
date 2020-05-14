@@ -26,26 +26,26 @@
 
 - name: Ensure directory for User Python source exists
   file: path="{{ emma_modules_dir }}/UserPython" state=directory group=users mode=g+rw
-  when: UserPython_dir.stat.exists is defined and not UserPython_dir.stat.exists
+  #when: UserPython_dir.stat.exists is defined and not UserPython_dir.stat.exists
 
 - name: Download UserPython source
   unarchive:
     src: "{{ UserPython_url }}"
     dest: "{{ emma_modules_dir }}/UserPython/"
     copy: no
-  when: UserPython_bin_stat.exists is defined and not UserPython_bin.stat.exists
+  #when: UserPython_bin_stat.exists is defined and not UserPython_bin.stat.exists
     #extra_opts: [--strip-components=1]
   #shell: "cd {{ emma_modules_dir }}/UserPython && wget {{ UserPython_url }} && tar -xf Python-{{ UserPython_version }}.tgz"
 
 
-- name: configure UserPython with optimization
-  shell: "cd {{ emma_modules_dir}}/UserPython/Python-{{ UserPython_version }} && ./configure --enable-optimizations"
-  when: UserPython_bin_stat.exists is defined and not UserPython_bin.stat.exists and UserPython_optimize
+#- name: configure UserPython with optimization
+#  shell: "cd {{ emma_modules_dir}}/UserPython/Python-{{ UserPython_version }} && ./configure --enable-optimizations"
+#  when: UserPython_bin_stat.exists is defined and not UserPython_bin.stat.exists and UserPython_optimize
 
 - name: configure UserPython WITHOUT optimization
   shell: "cd {{ emma_modules_dir}}/UserPython/Python-{{ UserPython_version }} && ./configure"
-  when: UserPython_bin_stat.exists is defined and not UserPython_bin.stat.exists and not UserPython_optimize
+  #when: UserPython_bin_stat.exists is defined and not UserPython_bin.stat.exists and not UserPython_optimize
 
 - name: build and install UserPython
   shell: "cd {{ emma_modules_dir}}/UserPython/Python-{{ UserPython_version}} && sudo make -d -j2 && sudo make -d altinstall "
-  when: UserPython_bin_stat.exists is defined and not UserPython_bin.stat.exists
+  #when: UserPython_bin_stat.exists is defined and not UserPython_bin.stat.exists
