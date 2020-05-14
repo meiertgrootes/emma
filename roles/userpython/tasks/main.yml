@@ -30,7 +30,7 @@
 
 - name: Download UserPython source
   unarchive:
-    src: {{ UserPython_url }}
+    src: "{{ UserPython_url }}"
     dest: "{{ emma_modules_dir }}/UserPython/"
     copy: no
   when: UserPython_bin_stat.exists is defined and not UserPython_bin.stat.exists
