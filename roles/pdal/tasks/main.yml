@@ -149,6 +149,13 @@
     update: no
   when: pdal_dir.stat.exists is defined and not pdal_dir.stat.exists
 
+- name: Install PDAL build requirements
+  pip:
+    name:
+      - numpy
+      - sklearn
+    executable: {{ pip_executable }}
+
 #Install PDAL
 - name: Install pdal library
   shell: "cd {{ emma_modules_dir }}/pdal/pdal_2_1_maintenance && sudo mkdir makefiles && cd makefiles && sudo cmake ../ -G \"Unix Makefiles\" -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=make -DPYTHON_EXECUTABLE={{ python_executable }} -DBUILD_PLUGIN_PYTHON=ON -DBUILD_PLUGIN_CPD=ON -DBUILD_PLUGIN_GREYHOUND=ON -DBUILD_PLUGIN_HEXBIN=ON -DBUILD_PLUGIN_NITF=ON -DBUILD_PLUGIN_ICEBRIDGE=ON -DBUILD_PLUGIN_PGPOINTCLOUD=ON -DBUILD_PLUGIN_SQLITE=ON -DWITH_LASZIP=ON -DWITH_LAZPERF=ON -DBUILD_PLUGIN_DELAUNAY=ON && sudo make -d -j2 && sudo make -d install && sudo ldconfig"
@@ -161,11 +168,11 @@
     name:
       - Cython
       - packaging
-    executable: pip3
+    executable: {{ pip_executable }}
 
 #Install PDAL python binding
 - name: Install PDAL python binding
   pip:
     name:
       - PDAL==2.3.3
-    executable: pip3
+    executable: {{ pip_executable }}
