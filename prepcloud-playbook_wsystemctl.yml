@@ -1,0 +1,66 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  tasks:
+  - name: Mkdir /root/.ssh
+    file: name=/root/.ssh owner=root state=directory
+  - name: Copy private ssh key for root
+    copy: src={{ host_name }}.key dest=/root/.ssh/id_rsa owner=root mode=go-rw
+  - name: Copy public ssh key for root
+    copy: src={{ host_name }}.key.pub dest=/root/.ssh/id_rsa.pub owner=root
+  - name: Copy authorized keys for root
+    copy: src={{ host_name }}.key.pub dest=/root/.ssh/authorized_keys owner=root
+  - name: Create data directory
+    file: path=/data/local state=directory
+  - name: Create partition on {{ datadisk }}
+    shell: echo ';' | sfdisk {{ datadisk }}
+    args:
+      creates: '{{ datadisk }}1'
+  - name: Format Partition
+    filesystem:
+      fstype: xfs
+      dev: '{{ datadisk }}1'
+  - name: Mount /data/local
+    mount:
+      name: /data/local
+      src: '{{ datadisk }}1'
+      fstype: xfs
+      state: mounted
+  - name: kill automatic updating script, if any
+    command: pkill --full /usr/bin/unattended-upgrade
+    register: kill_result
+    failed_when: kill_result.rc > 1 # rc == 1 if the script is inactive
+    changed_when: kill_result.rc == 0
+
+  - name: Stop update of Translation
+    lineinfile:
+      path: /etc/apt/apt.conf.d/00aptitude
+      line: 'Acquire::Languages "none";'
+
+  - name: disable u-u services
+    shell : "sudo systemctl mask unatended-upgrades.service && sudo systemctl stop unatended-upgrades.service && sudo while systemctl is-active --quiet unatended-upgrades.service do; sleep 1; done "
+  - name: disable apt-daily services
+    shell : "sudo systemctl mask apt-daily.service && sudo systemctl stop apt-daily.service && sudo while systemctl is-active --quiet apt-daily.service do; sleep 1; done "
+  - name: Update apt cache
+    apt: update_cache=yes
+  - name: Install dbus
+    apt: name=dbus
+  - name: Apt https
+    apt: name=apt-transport-https
+  - name: python-dev
+    apt: name=python-dev
+  - name: python3-dev
+    apt: name=python3-dev
+  - name: Reinstall python-pkg-resources
+    apt: name=python-pkg-resources force=yes
+  - name: python setuptools
+    apt: name=python-setuptools
+  - name: python3 setuptools
+    apt: name=python3-setuptools
+  - name: build-essential
+    apt: name=build-essential
+  #- name: renable u-u services
+  #  shell : "sudo systemctl unmask unatended-upgrades.service && sudo systemctl start unatended-upgrades.service "
+  #- name: renable apt-daily services
+  #  shell : "sudo systemctl unmask apt-daily.service && sudo systemctl start apt-daily.service "
