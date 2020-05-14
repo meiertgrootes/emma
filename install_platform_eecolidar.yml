@@ -17,6 +17,18 @@
   remote_user: ubuntu
   become: true
   vars_files:
+    - vars/common_vars.yml
+    - vars/userpython_vars.yml
+  roles:
+    - userpython
+  tags:
+    - userpython
+
+- hosts: all
+  gather_facts: no
+  remote_user: ubuntu
+  become: true
+  vars_files:
    - vars/pdal_vars.yml
   roles:
     - pdal
