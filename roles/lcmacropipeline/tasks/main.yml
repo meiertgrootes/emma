@@ -9,8 +9,15 @@
     version: "development"
     update: no
 
+- name: install jupyterlab dependencies for lcMacroPipeline
+  pip:
+    name:
+      - jupyterlab
+      - jupyter-server-proxy
+    executable: {{ pip_executable }}
+
 - name: Install lcMacroPipeline
   pip:
     name:
       - "{{ emma_modules_dir }}/lcMacroPipe/lcMacroPipeline/."
-    executable: pip3
+    executable: {{ pip_executable }}
