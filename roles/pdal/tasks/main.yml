@@ -154,7 +154,7 @@
     name:
       - numpy
       - sklearn
-    executable: {{ pip_executable }}
+    executable: "{{ pip_executable }}"
 
 #Install PDAL
 - name: Install pdal library
@@ -168,11 +168,11 @@
     name:
       - Cython
       - packaging
-    executable: {{ pip_executable }}
+    executable: "{{ pip_executable }}"
 
 #Install PDAL python binding
 - name: Install PDAL python binding
   pip:
     name:
       - PDAL==2.3.3
-    executable: {{ pip_executable }}
+    executable: "{{ pip_executable }}"

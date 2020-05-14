@@ -21,7 +21,7 @@
 - stat: path="{{emma_modules_dir}}/UserPython"
   register: UserPython_dir
 
-- stat: path="/usr/local/bin/{{UserPython_bin}}
+- stat: path="/usr/local/bin/{{UserPython_bin}}"
   register: UserPython_bin
 
 - name: Ensure directory for User Python source exists

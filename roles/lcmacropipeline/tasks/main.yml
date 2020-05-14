@@ -14,10 +14,10 @@
     name:
       - jupyterlab
       - jupyter-server-proxy
-    executable: {{ pip_executable }}
+    executable: "{{ pip_executable }}"
 
 - name: Install lcMacroPipeline
   pip:
     name:
       - "{{ emma_modules_dir }}/lcMacroPipe/lcMacroPipeline/."
-    executable: {{ pip_executable }}
+    executable: "{{ pip_executable }}"
