@@ -16,6 +16,12 @@
       - jupyter-server-proxy
     executable: "{{ pip_executable }}"
 
+- name: install gdal python bindings for lcmacropipeline
+  pip:
+    name:
+      - gdal==3.0.4
+    executable: "{{ pip_executable }}"
+
 - name: Install lcMacroPipeline
   pip:
     name:
