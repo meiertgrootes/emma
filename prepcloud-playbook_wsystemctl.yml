@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  remote_user: ubuntu
+  remote_user: root
   become: true
   tasks:
   - name: Mkdir /root/.ssh
@@ -28,7 +28,7 @@
       fstype: xfs
       state: mounted
   - name: kill automatic updating script, if any
-    command: sudo pkill --full /usr/bin/unattended-upgrade
+    command: pkill --full /usr/bin/unattended-upgrade
     register: kill_result
     failed_when: kill_result.rc > 1 # rc == 1 if the script is inactive
     changed_when: kill_result.rc == 0
@@ -39,9 +39,9 @@
       line: 'Acquire::Languages "none";'
 
   - name: disable u-u services
-    shell : "sudo systemctl mask unatended-upgrades.service && sudo systemctl stop unatended-upgrades.service && sudo while systemctl is-active --quiet unatended-upgrades.service do; sleep 10; done "
+    shell : "systemctl mask unatended-upgrades.service && sudo systemctl stop unatended-upgrades.service && sudo while systemctl is-active --quiet unatended-upgrades.service do; sleep 10; done "
   - name: disable apt-daily services
-    shell : "sudo systemctl mask apt-daily.service && sudo systemctl stop apt-daily.service && sudo while systemctl is-active --quiet apt-daily.service do; sleep 10; done "
+    shell : "systemctl mask apt-daily.service && sudo systemctl stop apt-daily.service && sudo while systemctl is-active --quiet apt-daily.service do; sleep 10; done "
   - name: Update apt cache
     apt: update_cache=yes
   - name: Install dbus
