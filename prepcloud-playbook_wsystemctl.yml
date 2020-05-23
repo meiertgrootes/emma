@@ -39,9 +39,9 @@
       line: 'Acquire::Languages "none";'
 
   - name: disable u-u services
-    shell : "sudo systemctl mask unatended-upgrades.service && sudo systemctl stop unatended-upgrades.service && sudo while systemctl is-active --quiet unatended-upgrades.service do; sleep 10; done "
+    shell : "sudo systemctl mask unatended-upgrades.service && sudo systemctl stop unatended-upgrades.service && sleep 20"
   - name: disable apt-daily services
-    shell : "sudo systemctl mask apt-daily.service && sudo systemctl stop apt-daily.service && sudo while systemctl is-active --quiet apt-daily.service do; sleep 10; done "
+    shell : "sudo systemctl mask apt-daily.service && sudo systemctl stop apt-daily.service && sleep 20 "
   - name: Update apt cache
     apt: update_cache=yes
   - name: Install dbus
