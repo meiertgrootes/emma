@@ -41,11 +41,11 @@
   remote_user: ubuntu
   become: true
   vars_files:
-    - vars/lcmacropipeline_vars.yml
+    - vars/laserfarm_vars.yml
   roles:
-    - lcmacropipeline
+    - laserfarm
   tags:
-    - lcmacropipeline
+    - laserfarm
 
 - hosts: dask
   gather_facts: yes

@@ -1,0 +1,35 @@
+---
+#- name: ensure lcmacropipeline directory exists
+#  file: path="{{ emma_modules_dir }}/lcMacroPipe" state=directory group=users mode=g+rw
+
+#- name: Download lcmacropipeline
+#  git:
+#    repo: https://github.com/eEcoLiDAR/lcMacroPipeline.git
+#    dest: "{{ emma_modules_dir }}/lcMacroPipe/lcMacroPipeline"
+#    version: "development"
+#    update: no
+
+- name: install jupyterlab dependencies for Laserfarm
+  pip:
+    name:
+      - jupyterlab
+      - jupyter-server-proxy
+    executable: "{{ pip_executable }}"
+
+- name: install gdal python bindings for Laserfarm
+  pip:
+    name:
+      - gdal==3.0.4
+    executable: "{{ pip_executable }}"
+
+- name: install Laserfarm
+  pip:
+    name:
+      - Laserfarm
+    executable: "{{ pip_executable }}"
+
+#- name: Install Laserfarm
+#  pip:
+#    name:
+#      - "{{ emma_modules_dir }}/lcMacroPipe/lcMacroPipeline/."
+#    executable: "{{ pip_executable }}"
